@@ -81,7 +81,17 @@ namespace WpfKeyboard.Control
             {
                 if (hangul)
                 {
-                    key = IsUpper(shift, capsLock, hangul) && !string.IsNullOrWhiteSpace(data.KorShiftKey) ? data.KorShiftKey : data.KorKey;
+                    if (capsLock && !shift && 
+                        (this.KeyCode == VirtualKeyCode.VK_Q || this.KeyCode == VirtualKeyCode.VK_W || this.KeyCode == VirtualKeyCode.VK_E ||
+                        this.KeyCode == VirtualKeyCode.VK_R || this.KeyCode == VirtualKeyCode.VK_T || this.KeyCode == VirtualKeyCode.VK_O ||
+                        this.KeyCode == VirtualKeyCode.VK_P))
+                    {
+                        key = data.KorKey;
+                    }
+                    else
+                    {
+                        key = IsUpper(shift, capsLock, hangul) && !string.IsNullOrWhiteSpace(data.KorShiftKey) ? data.KorShiftKey : data.KorKey;
+                    }
                 }
                 else
                 {
