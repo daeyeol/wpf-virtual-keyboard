@@ -1,0 +1,29 @@
+﻿<Window x:Class="WpfKeyboard.Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfKeyboard.Test"
+        xmlns:keyboard="clr-namespace:WpfKeyboard;assembly=WpfKeyboard"
+        mc:Ignorable="d"
+        Title="WpfKeyboard Test" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="900" Height="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" x:Name="tbInput" AcceptsTab="True"/>
+        <keyboard:NumbericKeyboard Grid.Row="1" x:Name="numbericKeyboard" Visibility="Hidden" IsShow="True"/>
+        <keyboard:GeneralKeyboard Grid.Row="1" x:Name="generalKeyboard" IsShow="True"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Hide" Background="Black" Foreground="White" x:Name="btnShow"/>
+            <Button Content="Numberic" Grid.Column="1" Background="Black" Foreground="White" x:Name="btnType"/>
+        </Grid>
+    </Grid>
+</Window>
