@@ -41,14 +41,14 @@ namespace WpfKeyboard
         }
         private void ChangeKeys(Panel panel)
         {
-            foreach(UIElement child in panel.Children)
+            foreach (UIElement child in panel.Children)
             {
-                if(child is Panel)
+                if (child is Panel)
                 {
                     var content = child as Panel;
                     ChangeKeys(content);
                 }
-                else if(child is KeyButton)
+                else if (child is KeyButton)
                 {
                     var keyButton = child as KeyButton;
                     keyButton.UpdateKey(this.IsPressShift, this.IsCapsLock, this.IsPressHangul);
@@ -66,14 +66,14 @@ namespace WpfKeyboard
             {
                 var keyButton = e.OriginalSource as KeyButton;
 
-                if(keyButton.KeyCode == VirtualKeyCode.CAPITAL)
+                if (keyButton.KeyCode == VirtualKeyCode.CAPITAL)
                 {
                     this.IsCapsLock = !this.IsCapsLock;
                     UpdateKeys();
 
                     InputSimulatorStatic.Keyboard.KeyPress(keyButton.KeyCode);
                 }
-                else if(keyButton.KeyCode == VirtualKeyCode.SHIFT)
+                else if (keyButton.KeyCode == VirtualKeyCode.SHIFT)
                 {
                     this.IsPressShift = !this.IsPressShift;
                     UpdateKeys();
@@ -83,7 +83,7 @@ namespace WpfKeyboard
                         InputSimulatorStatic.Keyboard.KeyDown(keyButton.KeyCode);
                     }
                 }
-                else if(keyButton.KeyCode == VirtualKeyCode.HANGUL)
+                else if (keyButton.KeyCode == VirtualKeyCode.HANGUL)
                 {
                     this.IsPressHangul = !this.IsPressHangul;
                     UpdateKeys();

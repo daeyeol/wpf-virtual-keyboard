@@ -105,9 +105,16 @@ namespace WpfKeyboard.Control
                 this.RenderTransform = this._translate;
 
                 Hook.MouseClickEvent += Hook_MouseClickEvent;
-                StartHook();
+
+                this.Unloaded += (s, args) =>
+                {
+                    Hook.Stop();
+                    Hook.MouseClickEvent -= Hook_MouseClickEvent;
+                };
 
                 Application.Current.MainWindow.Closed += (s, args) => Hook.Stop();
+
+                StartHook();
             }
         }
 
@@ -131,7 +138,7 @@ namespace WpfKeyboard.Control
 
         protected bool UpdateHookingArea()
         {
-            if(!(this.Content is FrameworkElement))
+            if (!(this.Content is FrameworkElement))
             {
                 this._hookingArea = null;
                 return false;
@@ -139,9 +146,16 @@ namespace WpfKeyboard.Control
 
             var content = this.Content as FrameworkElement;
             var bounds = VisualTreeHelper.GetDescendantBounds(content);
-            this._hookingArea = content.TransformToVisual(Application.Current.MainWindow).TransformBounds(bounds);
 
-            return true;
+            if (bounds != Rect.Empty)
+            {
+                this._hookingArea = content.TransformToVisual(Application.Current.MainWindow).TransformBounds(bounds);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected void RaiseVirtualKeyDownEvent(VirtualKeyCode keyCode)
@@ -169,7 +183,7 @@ namespace WpfKeyboard.Control
 
             storyboard.Children.Add(doubleAnimation);
 
-            Storyboard.SetTargetProperty(storyboard, new PropertyPath("(0).(1)", 
+            Storyboard.SetTargetProperty(storyboard, new PropertyPath("(0).(1)",
                 new DependencyProperty[] { UIElement.RenderTransformProperty, TranslateTransform.YProperty }));
 
             this.BeginStoryboard(storyboard, HandoffBehavior.SnapshotAndReplace);

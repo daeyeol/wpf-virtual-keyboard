@@ -54,6 +54,7 @@ namespace WpfKeyboard.Control
         {
             this.Focusable = false;
             this.IsTabStop = false;
+            this.ClickMode = ClickMode.Press;
 
             this.Loaded += (s, e) => UpdateKey(false, false, false);
         }
@@ -81,7 +82,7 @@ namespace WpfKeyboard.Control
             {
                 if (hangul)
                 {
-                    if (capsLock && !shift && 
+                    if (capsLock && !shift &&
                         (this.KeyCode == VirtualKeyCode.VK_Q || this.KeyCode == VirtualKeyCode.VK_W || this.KeyCode == VirtualKeyCode.VK_E ||
                         this.KeyCode == VirtualKeyCode.VK_R || this.KeyCode == VirtualKeyCode.VK_T || this.KeyCode == VirtualKeyCode.VK_O ||
                         this.KeyCode == VirtualKeyCode.VK_P))

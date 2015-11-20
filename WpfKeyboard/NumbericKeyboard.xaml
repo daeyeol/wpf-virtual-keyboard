@@ -60,10 +60,9 @@
             </Setter>
         </Style>
     </control:KeyboardUserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -74,14 +73,17 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <control:KeyButton KeyCode="NUMPAD7" Grid.Row="0"/>
             <control:KeyButton KeyCode="NUMPAD4" Grid.Row="1"/>
             <control:KeyButton KeyCode="NUMPAD1" Grid.Row="2"/>
+            <control:KeyButton KeyCode="BACK" Grid.Row="3"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -90,27 +92,20 @@
             <control:KeyButton KeyCode="NUMPAD8" Grid.Row="0"/>
             <control:KeyButton KeyCode="NUMPAD5" Grid.Row="1"/>
             <control:KeyButton KeyCode="NUMPAD2" Grid.Row="2"/>
+            <control:KeyButton KeyCode="NUMPAD0" Grid.Row="3"/>
         </Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <control:KeyButton KeyCode="NUMPAD9" Grid.Row="0"/>
-            <control:KeyButton KeyCode="NUMPAD6" Grid.Row="1"/> 
+            <control:KeyButton KeyCode="NUMPAD6" Grid.Row="1"/>
             <control:KeyButton KeyCode="NUMPAD3" Grid.Row="2"/>
-        </Grid>
-        <Grid Grid.Column="3">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <control:KeyButton KeyCode="BACK" Grid.Row="0"/>
-            <control:KeyButton KeyCode="RETURN" Grid.Row="1" Grid.RowSpan="2"/>
+            <control:KeyButton KeyCode="RETURN" Grid.Row="3"/>
         </Grid>
     </Grid>
 </control:KeyboardUserControl>
