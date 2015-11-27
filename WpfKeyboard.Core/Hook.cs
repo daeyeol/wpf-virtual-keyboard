@@ -32,6 +32,9 @@ namespace WpfKeyboard.Core
         public delegate void MouseClickEventHandler(Win32Api.POINT point, Win32Api.MouseMessages msg);
         public static event MouseClickEventHandler MouseClickEvent;
 
+        public delegate void KeyClickEventHandler(uint keyCode);
+        public static event KeyClickEventHandler KeyClickEvent;
+
         #endregion
 
         #region Property
@@ -68,7 +71,7 @@ namespace WpfKeyboard.Core
 
                         _hModule = Win32Api.GetModuleHandle(module.ModuleName);
 
-                        _keyboardId = Win32Api.SetWindowsHookEx((int)Win32Api.HookType.WH_KEYBOARD, _keyboardProc, _hModule, threadId);
+                        _keyboardId = Win32Api.SetWindowsHookEx((int)Win32Api.HookType.WH_KEYBOARD_LL, _keyboardProc, _hModule, 0);
                         _mouseId = Win32Api.SetWindowsHookEx((int)Win32Api.HookType.WH_MOUSE_LL, _mouseProc, _hModule, 0);
 
                         IsRun = true;
@@ -98,6 +101,17 @@ namespace WpfKeyboard.Core
             {
                 uint wParamValue = (uint)wParam;
                 long lParamValue = (long)lParam;
+
+                if (wParamValue == 256)
+                {
+                    var keyboardParam = (Win32Api.KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(Win32Api.KBDLLHOOKSTRUCT));
+
+                    var onKeyClickEvent = KeyClickEvent;
+                    if (onKeyClickEvent != null)
+                    {
+                        onKeyClickEvent(keyboardParam.vkCode);
+                    }
+                }
 
                 // 229 ( 0xE5 ) : VK_PROCESSKEY ( IME PROCESS key )
                 if ((wParamValue == 229 && lParamValue == -2147483647) || (wParamValue == 229 && lParamValue == -2147483648))

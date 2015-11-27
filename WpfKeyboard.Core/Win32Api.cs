@@ -35,6 +35,14 @@ namespace WpfKeyboard.Core
             WM_NCLBUTTONDOWN = 0x00A
         }
 
+        public enum KBDLLHOOKSTRUCTFlags
+        {
+            LLKHF_EXTENDED = 0x01,
+            LLKHF_INJECTED = 0x10,
+            LLKHF_ALTDOWN = 0x20,
+            LLKHF_UP = 0x80,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {
@@ -49,6 +57,16 @@ namespace WpfKeyboard.Core
             public IntPtr hwnd;
             public uint wHitTestCode;
             public IntPtr dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public class KBDLLHOOKSTRUCT
+        {
+            public uint vkCode;
+            public uint scanCode;
+            public KBDLLHOOKSTRUCTFlags flags;
+            public uint time;
+            public UIntPtr dwExtraInfo;
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -66,21 +84,6 @@ namespace WpfKeyboard.Core
 
         [DllImport("kernel32.dll")]
         public static extern uint GetCurrentThreadId();
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetFocus();
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SetFocus(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr WindowFromPoint(POINT p);
 
         public const int HC_ACTION = 0;
 

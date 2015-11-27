@@ -16,7 +16,7 @@ namespace WpfKeyboard.Control
 
         #region Dependency Property
 
-        #region IsShow
+        #region IsPressed
 
         public static readonly new DependencyProperty IsPressedProperty =
             DependencyProperty.Register("IsPressed",
@@ -25,8 +25,8 @@ namespace WpfKeyboard.Control
 
         public new bool IsPressed
         {
-            get { return (bool)this.GetValue(IsPressedProperty); }
-            set { this.SetValue(IsPressedProperty, value); }
+            get { return (bool)GetValue(IsPressedProperty); }
+            set { SetValue(IsPressedProperty, value); }
         }
 
         #endregion
@@ -52,40 +52,33 @@ namespace WpfKeyboard.Control
 
         public KeyButton()
         {
-            this.Focusable = false;
-            this.IsTabStop = false;
-            this.ClickMode = ClickMode.Press;
-
-            this.Loaded += (s, e) => UpdateKey(false, false, false);
+            Focusable = false;
+            IsTabStop = false;
+            ClickMode = ClickMode.Press;
         }
 
         #endregion
 
         #region Public Method
 
-        private bool IsUpper(bool shift, bool capsLock, bool hangul)
-        {
-            return (shift && !capsLock) || (capsLock && !shift && !hangul) || (capsLock && !shift);
-        }
-
         public void UpdateKey(bool shift, bool capsLock, bool hangul)
         {
-            if (!_keyDictionary.ContainsKey(this.KeyCode))
+            if (!_keyDictionary.ContainsKey(KeyCode))
             {
                 return;
             }
 
-            var data = _keyDictionary[this.KeyCode];
+            var data = _keyDictionary[KeyCode];
             var key = data.DefaultKey;
 
-            if (this.KeyCode >= VirtualKeyCode.VK_A && this.KeyCode <= VirtualKeyCode.VK_Z)
+            if (KeyCode >= VirtualKeyCode.VK_A && KeyCode <= VirtualKeyCode.VK_Z)
             {
                 if (hangul)
                 {
                     if (capsLock && !shift &&
-                        (this.KeyCode == VirtualKeyCode.VK_Q || this.KeyCode == VirtualKeyCode.VK_W || this.KeyCode == VirtualKeyCode.VK_E ||
-                        this.KeyCode == VirtualKeyCode.VK_R || this.KeyCode == VirtualKeyCode.VK_T || this.KeyCode == VirtualKeyCode.VK_O ||
-                        this.KeyCode == VirtualKeyCode.VK_P))
+                        (KeyCode == VirtualKeyCode.VK_Q || KeyCode == VirtualKeyCode.VK_W || KeyCode == VirtualKeyCode.VK_E ||
+                        KeyCode == VirtualKeyCode.VK_R || KeyCode == VirtualKeyCode.VK_T || KeyCode == VirtualKeyCode.VK_O ||
+                        KeyCode == VirtualKeyCode.VK_P))
                     {
                         key = data.KorKey;
                     }
@@ -104,36 +97,27 @@ namespace WpfKeyboard.Control
                 key = IsUpper(shift, capsLock, hangul) && !string.IsNullOrWhiteSpace(data.ShiftKey) ? data.ShiftKey : key;
             }
 
-            if (this.KeyCode == VirtualKeyCode.SHIFT)
+            if (KeyCode == VirtualKeyCode.SHIFT)
             {
-                if (shift)
-                {
-                    this.FontWeight = FontWeights.Bold;
-                }
-                else
-                {
-                    this.FontWeight = FontWeights.Normal;
-                }
+                IsPressed = shift;
             }
 
-            if (this.KeyCode == VirtualKeyCode.CAPITAL)
+            if (KeyCode == VirtualKeyCode.CAPITAL)
             {
-                if (capsLock)
-                {
-                    this.FontWeight = FontWeights.Bold;
-                }
-                else
-                {
-                    this.FontWeight = FontWeights.Normal;
-                }
+                IsPressed = capsLock;
             }
 
-            this.Content = key;
+            Content = key;
         }
 
         #endregion
 
         #region Private Method
+
+        private bool IsUpper(bool shift, bool capsLock, bool hangul)
+        {
+            return (shift && !capsLock) || (capsLock && !shift && !hangul) || (capsLock && !shift);
+        }
 
         private static void MappingKeys()
         {

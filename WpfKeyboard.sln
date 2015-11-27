@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfKeyboard", "WpfKeyboard\WpfKeyboard.csproj", "{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfKeyboard.Test", "WpfKeyboard.Test\WpfKeyboard.Test.csproj", "{77D39EE6-96A4-4B28-9411-67A0175361BF}"
@@ -25,8 +27,8 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Any CPU.Build.0 = Debug|x86
+		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Debug|Win32.ActiveCfg = Debug|Any CPU
@@ -43,8 +45,8 @@ Global
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Release|x64.Build.0 = Release|Any CPU
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Release|x86.ActiveCfg = Release|Any CPU
 		{B6DA5232-DCC4-4BF0-8638-EDBA6609C186}.Release|x86.Build.0 = Release|Any CPU
-		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Any CPU.Build.0 = Debug|x86
+		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{77D39EE6-96A4-4B28-9411-67A0175361BF}.Debug|Win32.ActiveCfg = Debug|Any CPU

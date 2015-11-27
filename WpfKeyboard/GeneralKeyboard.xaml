@@ -9,7 +9,7 @@
     <control:KeyboardUserControl.Resources>
         <Style TargetType="{x:Type control:KeyButton}">
             <Setter Property="FocusVisualStyle">
-                <Setter.Value>
+                <Setter.Value> 
                     <Style>
                         <Setter Property="Control.Template">
                             <Setter.Value>
@@ -21,7 +21,7 @@
                     </Style>
                 </Setter.Value>
             </Setter>
-            <Setter Property="FontFamily" Value="Noto Sans CJK KR DemiLight"/>
+
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Background" Value="#FFDDDDDD"/>
             <Setter Property="BorderBrush" Value="#FF707070"/>
