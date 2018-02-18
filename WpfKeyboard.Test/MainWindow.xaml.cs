@@ -2,9 +2,6 @@
 
 namespace WpfKeyboard.Test
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class MainWindow : Window
     {
         private int _type = 0;
@@ -13,55 +10,58 @@ namespace WpfKeyboard.Test
         {
             InitializeComponent();
 
-            this.tbInput.AcceptsReturn = true;
-            this.tbInput.Focus();
+            tbInput.AcceptsReturn = true;
+            tbInput.Focus();
 
-            this.btnType.Click += BtnType_Click;
-            this.btnShow.Click += BtnShow_Click;
+            generalKeyboard.IsEnableHook = true;
+            numbericKeyboard.IsEnableHook = true;
+
+            btnType.Click += BtnType_Click;
+            btnShow.Click += BtnShow_Click;
         }
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
             var show = false;
 
-            if(this._type == 0)
+            if(_type == 0)
             {
-                this.generalKeyboard.IsShow= !this.generalKeyboard.IsShow;
-                show = this.generalKeyboard.IsShow;
+                generalKeyboard.IsShow= !generalKeyboard.IsShow;
+                show = generalKeyboard.IsShow;
             }
             else
             {
-                this.numbericKeyboard.IsShow = !this.numbericKeyboard.IsShow;
-                show = this.numbericKeyboard.IsShow;
+                numbericKeyboard.IsShow = !numbericKeyboard.IsShow;
+                show = numbericKeyboard.IsShow;
             }
 
-            this.btnShow.Content = show ? "Hide" : "Show";
-            this.tbInput.Focus();
+            btnShow.Content = show ? "Hide" : "Show";
+            tbInput.Focus();
         }
 
         private void BtnType_Click(object sender, RoutedEventArgs e)
         {
             bool show = false;
 
-            if(this._type == 0)
+            if(_type == 0)
             {
-                show = this.numbericKeyboard.IsShow;
+                show = numbericKeyboard.IsShow;
 
-                this.generalKeyboard.Visibility = Visibility.Hidden;
-                this.numbericKeyboard.Visibility = Visibility.Visible;
-                this._type = 1;           
+                generalKeyboard.Visibility = Visibility.Hidden;
+                numbericKeyboard.Visibility = Visibility.Visible;
+                _type = 1;           
             }
             else
             {
-                show = this.generalKeyboard.IsShow;
+                show = generalKeyboard.IsShow;
 
-                this.numbericKeyboard.Visibility = Visibility.Hidden;
-                this.generalKeyboard.Visibility = Visibility.Visible;
-                this._type = 0;
+                numbericKeyboard.Visibility = Visibility.Hidden;
+                generalKeyboard.Visibility = Visibility.Visible;
+                _type = 0;
             }
 
-            this.btnType.Content = this._type == 0 ? "Numberic" : "General";
-            this.btnShow.Content = show ? "Hide" : "Show";
-            this.tbInput.Focus();
+            btnType.Content = _type == 0 ? "Numberic" : "General";
+            btnShow.Content = show ? "Hide" : "Show";
+            tbInput.Focus();
         }
     }
 }

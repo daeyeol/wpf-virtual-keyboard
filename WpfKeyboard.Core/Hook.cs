@@ -22,9 +22,7 @@ namespace WpfKeyboard.Core
         private static Win32Api.HookProc _keyboardProc = new Win32Api.HookProc(KeyboardProc);
         private static Win32Api.HookProc _mouseProc = new Win32Api.HookProc(MouseProc);
 
-        private static Window _window;
-        private static Win32Api.MOUSEHOOKSTRUCT _mouseParam;
-        private static Rect hookingArea;
+        private static Win32Api.MOUSEHOOKSTRUCT _mouseParam;        
 
         private static IntPtr _prevWindow = IntPtr.Zero;
         private static IntPtr _prevFocus = IntPtr.Zero;
@@ -41,6 +39,8 @@ namespace WpfKeyboard.Core
 
         public static bool IsRun { get; private set; }
         public static bool UseGlobal { get; set; }
+        public static Rect HookArea { get; set; }
+        public static UIElement HookElement { get; set; }
 
         #endregion
 
@@ -54,19 +54,16 @@ namespace WpfKeyboard.Core
 
         #region Public Method
 
-        public static void Start(Rect hookingArea)
+        public static void Start()
         {
             if (!IsRun)
             {
-                Hook.hookingArea = hookingArea;
-
-                uint threadId = Win32Api.GetCurrentThreadId();
+                var threadId = Win32Api.GetCurrentThreadId();
 
                 using (Process process = Process.GetCurrentProcess())
                 {
                     using (ProcessModule module = process.MainModule)
                     {
-                        _window = System.Windows.Application.Current.MainWindow;
                         _handle = process.MainWindowHandle;
 
                         _hModule = Win32Api.GetModuleHandle(module.ModuleName);
@@ -99,18 +96,14 @@ namespace WpfKeyboard.Core
         {
             if (nCode == Win32Api.HC_ACTION)
             {
-                uint wParamValue = (uint)wParam;
-                long lParamValue = (long)lParam;
+                var wParamValue = (uint)wParam;
+                var lParamValue = (long)lParam;
 
                 if (wParamValue == 256)
                 {
                     var keyboardParam = (Win32Api.KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(Win32Api.KBDLLHOOKSTRUCT));
 
-                    var onKeyClickEvent = KeyClickEvent;
-                    if (onKeyClickEvent != null)
-                    {
-                        onKeyClickEvent(keyboardParam.vkCode);
-                    }
+                    KeyClickEvent?.Invoke(keyboardParam.vkCode);
                 }
 
                 // 229 ( 0xE5 ) : VK_PROCESSKEY ( IME PROCESS key )
@@ -137,11 +130,7 @@ namespace WpfKeyboard.Core
                 {
                     if (mouseMessage == Win32Api.MouseMessages.WM_LBUTTONDOWN || mouseMessage == Win32Api.MouseMessages.WM_LBUTTONUP)
                     {
-                        var onMouseClickEvent = MouseClickEvent;
-                        if (onMouseClickEvent != null)
-                        {
-                            onMouseClickEvent(_mouseParam.pt, mouseMessage);
-                        }
+                        MouseClickEvent?.Invoke(_mouseParam.pt, mouseMessage);
 
                         if (mouseMessage == Win32Api.MouseMessages.WM_LBUTTONDOWN && IsHookingArea())
                         {
@@ -156,10 +145,15 @@ namespace WpfKeyboard.Core
 
         private static bool IsHookingArea()
         {
-            var point = _window.PointFromScreen(new Point((double)_mouseParam.pt.x, (double)_mouseParam.pt.y));
-            var contains = hookingArea.Contains(point);
+            if (HookElement != null && !HookArea.IsEmpty)
+            {
+                var point = HookElement.PointFromScreen(new Point(_mouseParam.pt.x, _mouseParam.pt.y));
+                var contains = HookArea.Contains(point);
 
-            return contains;
+                return contains;
+            }
+
+            return true;
         }
 
         #endregion

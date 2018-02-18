@@ -67,12 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\KeyButton.cs" />
+    <Compile Include="Control\Key.cs" />
     <Compile Include="GeneralKeyboard.xaml.cs">
       <DependentUpon>GeneralKeyboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\KeyboardUserControl.cs" />
-    <Compile Include="Helper\InputSimulatorStatic.cs" />
+    <Compile Include="Control\VirtualKeyboard.cs" />
+    <Compile Include="Helper\Simulator.cs" />
     <Compile Include="Helper\TreeHelper.cs" />
     <Compile Include="Model\KeyData.cs" />
     <Compile Include="NumbericKeyboard.xaml.cs">
