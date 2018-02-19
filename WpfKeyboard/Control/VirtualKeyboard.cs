@@ -48,7 +48,7 @@ namespace WpfKeyboard.Control
             DependencyProperty.Register("IsShow",
                 typeof(bool),
                 typeof(VirtualKeyboard),
-                new PropertyMetadata(ChangedIsShowProperty));
+                new PropertyMetadata(true, ChangedIsShowProperty));
 
         public bool IsShow
         {
