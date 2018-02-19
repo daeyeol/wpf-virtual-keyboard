@@ -381,13 +381,16 @@ namespace WpfKeyboard.Control
 
         private void KeyboardUserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(IsEnableHook && (bool)e.NewValue)
+            if ((bool)e.NewValue)
             {
-                IsPressedHangul = !Simulator.Input.InputDeviceState.IsTogglingKeyInEffect(VirtualKeyCode.HANGUL);
-                IsPressedCapsLock = Simulator.Input.InputDeviceState.IsTogglingKeyInEffect(VirtualKeyCode.CAPITAL);
+                if (IsEnableHook)
+                {
+                    IsPressedHangul = !Simulator.Input.InputDeviceState.IsTogglingKeyInEffect(VirtualKeyCode.HANGUL);
+                    IsPressedCapsLock = Simulator.Input.InputDeviceState.IsTogglingKeyInEffect(VirtualKeyCode.CAPITAL);
+                    UpdateHookData();
+                }
 
                 UpdateKeys();
-                UpdateHookData();
             }
         }
 
