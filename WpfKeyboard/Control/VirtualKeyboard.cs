@@ -97,8 +97,8 @@ namespace WpfKeyboard.Control
 
         public bool IsEnableHook
         {
-            get { return (bool)GetValue(UseGlobalProperty); }
-            set { SetValue(UseGlobalProperty, value); }
+            get { return (bool)GetValue(IsEnableHookProperty); }
+            set { SetValue(IsEnableHookProperty, value); }
         }
 
         private static void ChangedIsEnableHookProperty(DependencyObject obj, DependencyPropertyChangedEventArgs e)
