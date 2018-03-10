@@ -287,7 +287,7 @@ namespace WpfKeyboard.Control
         {
             var key = e.OriginalSource as Key;
 
-            if(key == null)
+            if(key == null || (IsEnableHook && key.IsStylusCaptured))
             {
                 return;
             }
